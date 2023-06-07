@@ -29,7 +29,8 @@ app_license = "MIT"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {"Sales Invoice" : "public/js/sales_invoice.js",
+              "POS Invoice" : "public/js/pos_invoice.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -104,8 +105,15 @@ app_license = "MIT"
 
 doc_events = {
 	"Sales Invoice": {
-		"validate": "pos_compu_sys.utils.get_balance",
+		"validate": ["pos_compu_sys.utils.get_balance",
+              		 "pos_compu_sys.utils.validate_party_balance"],
+        "on_submit": "pos_compu_sys.utils.validate_party_balance"
         # "on_submit": "pos_compu_sys.utils.get_after_balance"
+	},
+    "POS Invoice":{
+        "validate": ["pos_compu_sys.utils.get_balance",
+              		 "pos_compu_sys.utils.validate_party_balance"],
+        "on_submit": "pos_compu_sys.utils.validate_party_balance"
 	}
 }
 
